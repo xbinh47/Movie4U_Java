@@ -6,4 +6,6 @@ public interface UserService {
     public String logIn(HashMap<String,String> data);
     public void logOut();
     public String register(HashMap<String,String> data);
+    HashMap<String, Object> getAllUsers();
+
 }
