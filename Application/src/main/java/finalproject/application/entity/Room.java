@@ -15,7 +15,7 @@ public class Room {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -23,19 +23,12 @@ public class Room {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "capacity")
+    @Column(name = "capacity", columnDefinition = "int default 184")
     private Integer capacity;
 
-    @Column(name = "price")
-    private BigDecimal price;
-
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("room")
-    private List<Schedule> schedules;
-
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("room")
-    private List<Seat> seats;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "theatre_id", referencedColumnName = "id")
+    private Theatre theatre;
 }
 
 

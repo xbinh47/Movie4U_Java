@@ -11,8 +11,14 @@ import lombok.*;
 public class Poster {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Column(name = "image", nullable = false)
     private String image;
+
+    @Column(name = "trailer", nullable = false)
+    private String trailer;
 }

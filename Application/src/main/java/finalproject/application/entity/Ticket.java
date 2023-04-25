@@ -6,6 +6,7 @@ import lombok.*;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "ticket")
@@ -14,11 +15,11 @@ import java.math.BigDecimal;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
+    private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "schedule_id", referencedColumnName = "id")
@@ -30,5 +31,8 @@ public class Ticket {
 
     @Column(name = "price")
     private BigDecimal price;
+
+    @ManyToMany(mappedBy = "ticketList")
+    private List<FoodCombo> foodComboList;
 }
 

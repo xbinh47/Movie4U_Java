@@ -21,4 +21,9 @@ public class UserServiceImpl implements UserService {
     public String register(HashMap<String, String> data) {
         return null;
     }
+
+    @Override
+    public HashMap<String, Object> getAllUsers() {
+        return null;
+    }
 }

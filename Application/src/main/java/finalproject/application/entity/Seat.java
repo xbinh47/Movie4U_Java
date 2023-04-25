@@ -13,13 +13,18 @@ import lombok.*;
 public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+
+    @Column(name = "name")
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id", referencedColumnName = "id")
-    private Room room;
+    @JoinColumn(name = "ticket_id", referencedColumnName = "id")
+    private Ticket ticket;
 
-    @Column(name = "type")
-    private Integer type;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "schedule_time_id", referencedColumnName = "id")
+    private ScheduleTime scheduleTime;
+
 }
 

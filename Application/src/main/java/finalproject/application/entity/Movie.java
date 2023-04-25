@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.Set;
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -34,15 +35,22 @@ public class Movie {
     @Column(name = "status", nullable = false, columnDefinition = "TINYINT DEFAULT 1")
     private Integer status;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToMany
-    @JoinTable(name = "movie_category",
-            joinColumns = {@JoinColumn(name = "movie_id")},
-            inverseJoinColumns = {@JoinColumn(name = "category_id")})
-    private Set<Category> categories;
+    @Column(name = "age_restrict", nullable = false)
+    private Integer ageRestrict;
 
-    @OneToMany(mappedBy = "movie")
-    private Set<Schedule> schedules;
+    @Column(name = "director", nullable = false)
+    private String director;
+
+    @Column(name = "actors", nullable = false)
+    private String actors;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("movie")
+    private List<Schedule> schedules;
+
+    @ManyToMany(mappedBy = "movieList")
+    private List<Category> categories;
 }

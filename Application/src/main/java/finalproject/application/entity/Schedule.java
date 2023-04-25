@@ -16,28 +16,27 @@ public class Schedule {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "movie_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("schedules")
-    private Movie movie;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id", referencedColumnName = "id")
-    @JsonIgnoreProperties("schedules")
-    private Room room;
-
-    @Column(name = "start_time")
-    private LocalDateTime startTime;
-
-    @Column(name = "end_time")
-    private LocalDateTime endTime;
+    @Column(name = "date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime date;
 
     @Column(name = "price")
     private BigDecimal price;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
+    private Room room;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "movie_id", referencedColumnName = "id")
+    private Movie movie;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "theatre_id", referencedColumnName = "id")
+    private Theatre theatre;
+
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("schedule")
-    private List<Ticket> tickets;
+    private List<ScheduleTime> scheduleTimes;
 }
