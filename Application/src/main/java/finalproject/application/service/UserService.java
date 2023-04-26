@@ -8,4 +8,5 @@ public interface UserService {
     public String register(HashMap<String,String> data);
     HashMap<String, Object> getAllUsers();
 
+
 }
