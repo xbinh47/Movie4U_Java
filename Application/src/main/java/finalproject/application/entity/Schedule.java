@@ -22,7 +22,7 @@ public class Schedule {
     private LocalDateTime date;
 
     @Column(name = "price")
-    private BigDecimal price;
+    private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id", referencedColumnName = "id")

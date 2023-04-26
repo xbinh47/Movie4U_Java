@@ -6,6 +6,7 @@ import lombok.*;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -18,21 +19,23 @@ public class Ticket {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "schedule_id", referencedColumnName = "id")
-    private Schedule schedule;
+    @JoinColumn(name = "schedule_time_id", referencedColumnName = "id")
+    private ScheduleTime scheduleTime;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seat_id", referencedColumnName = "id")
-    private Seat seat;
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+    private List<Seat> seatList;
 
-    @Column(name = "price")
-    private BigDecimal price;
+    @Column(name = "total")
+    private Integer total;
 
-    @ManyToMany(mappedBy = "ticketList")
-    private List<FoodCombo> foodComboList;
+    @Column(name = "createat", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime createat;
+
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+    private List<FoodComboTicket> foodComboTicketList;
 }
 

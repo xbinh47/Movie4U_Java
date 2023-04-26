@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +39,7 @@ public class ScheduleDTO {
     private String date;
 
     @JsonProperty("price")
-    private BigDecimal price;
+    private Integer price;
 
     @JsonProperty("start_times")
     private String startTimes;
@@ -74,8 +75,8 @@ public class ScheduleDTO {
         scheduleDTO.setMovieName((String) params[2]);
         scheduleDTO.setRoomId((Integer) params[3]);
         scheduleDTO.setTheatreId((Integer) params[4]);
-        scheduleDTO.setDate((String) params[5]);
-        scheduleDTO.setPrice((BigDecimal) params[6]);
+        scheduleDTO.setDate(((Timestamp) params[5]).toString());
+        scheduleDTO.setPrice((Integer) params[6]);
         scheduleDTO.setStartTimes((String) params[7]);
         scheduleDTO.setEndTimes((String) params[8]);
         scheduleDTO.setScheduleTimeIds((String) params[9]);

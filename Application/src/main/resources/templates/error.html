@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> ERROR | TECH STORE </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center mt-2">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <img src="/images/error.png" class="img-fluid mx-auto d-block mb-4" alt="Error Image">
+                    <h1 class="text-center text-danger">Oops! Something went wrong.</h1>
+                    <div class="code text-center mt-1">
+                        <p>Error Code:</p>
+                        <h2 th:text="${errorCode}"></h2>
+                    </div>
+                    <div class="alert alert-danger text-center mt-4" role="alert" th:text="${errorMsg}">
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a href="/" class="btn btn-primary mt-2">Go to Homepage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

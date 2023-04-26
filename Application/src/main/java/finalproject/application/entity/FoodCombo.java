@@ -1,14 +1,18 @@
 package finalproject.application.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "food_combo")
+@NoArgsConstructor @AllArgsConstructor @Getter @Setter @ToString
 public class FoodCombo {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "name", nullable = false)
@@ -24,14 +28,11 @@ public class FoodCombo {
     private String image;
 
     @Column(name = "price", nullable = false)
-    private Long price;
+    private Integer price;
 
     @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToMany
-    @JoinTable(name = "food_combo_ticket",
-            joinColumns = @JoinColumn(name = "food_combo_id"),
-            inverseJoinColumns = @JoinColumn(name = "ticket_id"))
-    private List<Ticket> ticketList;
+    @OneToMany(mappedBy = "foodCombo", cascade = CascadeType.ALL)
+    private List<FoodComboTicket> foodComboTicketList;
 }
