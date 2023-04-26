@@ -17,6 +17,41 @@ public class UserController{
     public String main() {
          return "user/home.html";
     }
+
+
+    @GetMapping("/movie")
+    public String movie() {
+        return "user/movie.html";
+    }
+
+    @GetMapping("/movieticket")
+    public String movieticket() {
+        return "user/movie_ticket.html";
+    }
+
+    @GetMapping("/support")
+    public String support() {
+        return "user/support.html";
+    }
+
+
+    @GetMapping("/profile")
+    public String profile() {
+        return "user/profile.html";
+    }
+
+    @GetMapping("/history")
+    public String history() {
+        return "user/history.html";
+    }
+
+    @GetMapping("/theater")
+    public String theater() {
+        return "user/theater.html";
+    }
+
+
+
     @PostMapping("/login")
     @ResponseBody
     public HashMap<String, Object> login(@RequestBody HashMap<String, String> body, HttpServletRequest request) {

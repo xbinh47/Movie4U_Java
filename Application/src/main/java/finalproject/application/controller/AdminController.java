@@ -29,6 +29,34 @@ public class AdminController {
     }
 
 
+    @GetMapping("/MovieTheatres")
+    public String movieTheatres() {
+        return "admin/moivetheatres_admin.html";
+    }
+
+
+    @GetMapping("/Movie")
+    public String movie() {
+        return "admin/movies_admin.html";
+    }
+
+    @GetMapping("/ShowTiming")
+    public String showTiming() {
+        return "admin/showtiming_admin.html";
+    }
+
+    @GetMapping("/Combo")
+    public String combo() {
+        return "admin/combo_admin.html";
+    }
+
+    @GetMapping("/User")
+    public String user() {
+        return "admin/users_admin.html";
+    }
+
+
+
 
     @GetMapping("/getAllSchedule")
     @ResponseBody
