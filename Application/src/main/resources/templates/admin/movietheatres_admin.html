@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie4U</title>
+    <link rel="stylesheet" href="/css/styles_admin.css">
+    <link rel="stylesheet" href="/css/responsive_admin.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/UI/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/UI/favicon-16x16.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+          integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+<section id="snackbar-container">
+</section>
+<div class="side-nav">
+    <div class="admin">
+        <div class="admin-img"><i class="fa-solid fa-user fa-xl"></i></div>
+        <div class="admin-title_name">
+            <h2 class="admin-name">Zuykorean</h2>
+            <p>Beta 1.1</p>
+        </div>
+    </div>
+    {{!-- <div class="light-line"></div> --}}
+    <div class="admin_nav-outer">
+        <ul class="nav-opt">
+            <li id="dashboard_admin"><i class="fa-solid fa-chart-line fa-xl"></i>
+                <p>Dashboard</p>
+            </li>
+            <li id="movieTheatres_admin"><i class="fa-solid fa-film fa-xl"></i>
+                <p>Movie Theatres</p>
+            </li>
+            <li id="movies_admin"><i class="fa-solid fa-video fa-xl"></i>
+                <p>Movies</p>
+            </li>
+            <li id="showTiming_admin"><i class="fa-solid fa-calendar fa-xl"></i>
+                <p>Show Timings</p>
+            </li>
+            <li id="combo_admin"><i class="fa-solid fa-utensils fa-xl"></i>
+                <p>Food & Drink Combo</p>
+            </li>
+            <li id="users_admin"><i class="fa-solid fa-users fa-xl"></i>
+                <p>Users</p>
+            </li>
+            <li id="booking_admin"><i class="fa-solid fa-ticket fa-xl"></i>
+                <p>Booking</p>
+            </li>
+            {{!-- <li id="expense_admin"><i class="fa-solid fa-money-bill-1-wave fa-xl"></i>
+            <p>Expense</p>
+        </li> --}}
+        </ul>
+        <ul class="nav-opt outer_logout">
+            <li id="logout_admin"><i class="fa-solid fa-arrow-right-from-bracket fa-xl"></i>
+                <p>Logout</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="main-body">
+    <div class="body-header">
+        <h4>Theatre List </h4>
+        <div class="content_btn">
+            <button type="button" class="btn btn-success " data-bs-toggle="modal"
+                    data-bs-target="#theatres_add-modal">Add</button>
+            <button id="btn_delete-theatre" type="submit" class="btn btn-danger ">Delete Selected</button>
+        </div>
+    </div>
+    <table id="table_theatres" class="table">
+        <thead class="content_title">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Theatre Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Address</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Modify</th>
+        </tr>
+        </thead>
+        <tbody id="list_theatres" class="content_list">
+
+        </tbody>
+    </table>
+    <div class="modal fade" id="theatres_add-modal" tabindex="-1" aria-labelledby="theatres_add-label"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content add_modal">
+                <form id="form_add-theatres" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="theatres_add-label">Add Theatre</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Theatre Name</p>
+                        <div class="input-group flex-nowrap">
+                            <input type="text" id="theatre_name" class="form-control" placeholder="Enter theatre name">
+                        </div>
+                        <p>Theatre Address</p>
+                        <div class="input-group flex-nowrap">
+                            <input type="text" id="theatre_address" class="form-control"
+                                   placeholder="Enter theatre address">
+                        </div>
+                        <p>Add Theatre Image</p>
+                        <div class="mb-3 add_image-outer">
+                            <input class="form-control" type="file" id="theatre_img">
+                        </div>
+                        <p>Add Theatre Telephone</p>
+                        <div class="input-group flex-nowrap">
+                            <input type="tel" id="theatre_tel" class="form-control">
+                        </div>
+                        <div class="mb-3 add_image-outer">
+                            <p>Add Theatre Description</p>
+                            <div class="input-group flex-nowrap">
+                                <textarea class="form-control" id="theatre_description" rows="3"
+                                          placeholder="Enter movie description"></textarea>
+                            </div>
+                        </div>
+                        <div class="theatres_room-outer">
+                            <div class="theatres_room ">
+                                <p>2D/3D</p>
+                                <div class="mb-3 add_image-outer">
+                                    <input type="number" id="2d3d_add" class="form-control" min="0" max="10">
+                                </div>
+                            </div>
+                            <div class="theatres_room ">
+                                <p>IMAX</p>
+                                <div class="mb-3 add_image-outer">
+                                    <input type="number" id="imax_add" class="form-control" min="0" max="10">
+                                </div>
+                            </div>
+                            <div class="theatres_room ">
+                                <p>4DX</p>
+                                <div class="mb-3 add_image-outer">
+                                    <input type="number" id="4dx_add" class="form-control" min="0" max="10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="btn_add-theatre" class="btn btn-primary" data-bs-dismiss="modal">Add
+                            Theatre</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="theatres_edit-modal" tabindex="-1" aria-labelledby="theatres_edit-label"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content add_modal">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="theatres_edit-label"></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form_edit-theatres" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <p>Theatre Name</p>
+                        <div class="input-group flex-nowrap">
+                            <input type="text" id="theatre_name-edit" class="form-control"
+                                   placeholder="Enter theatre name">
+                        </div>
+                        <p>Theatre Address</p>
+                        <div class="input-group flex-nowrap">
+                            <input type="text" id="theatre_address-edit" class="form-control"
+                                   placeholder="Enter theatre address">
+                        </div>
+                        <div class="mb-3 add_image-outer">
+                            <p>Edit Theatre Image</p>
+                            <input class="form-control" type="file" id="theatre_img-edit">
+                        </div>
+                        <p>Edit Theatre Telephone</p>
+                        <div class="input-group flex-nowrap">
+                            <input type="tel" id="theatre_tel-edit" class="form-control">
+                        </div>
+                        <div class="mb-3 add_image-outer">
+                            <p>Edit Theatre Description</p>
+                            <div class="input-group flex-nowrap">
+                                <textarea class="form-control" id="theatre_description-edit" rows="3"
+                                          placeholder="Enter movie description"></textarea>
+                            </div>
+                        </div>
+                        <div class="theatres_room-outer">
+                            <div class="theatres_room ">
+                                <p>2D/3D</p>
+                                <div class="mb-3 add_image-outer">
+                                    <input type="number" id="2d3d_edit" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="theatres_room ">
+                                <p>IMAX</p>
+                                <div class="mb-3 add_image-outer">
+                                    <input type="number" id="imax_edit" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="theatres_room ">
+                                <p>4DX</p>
+                                <div class="mb-3 add_image-outer">
+                                    <input type="number" id="4dx_edit" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="btn_edit-theatre" class="btn btn-primary" data-bs-dismiss="modal">Edit
+                            Theatre</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/main_admin.js"></script>
+<script src="/js/movietheatres_admin.js"></script>
+
+</html>

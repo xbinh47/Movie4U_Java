@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie4U</title>
+    <link rel="stylesheet" href="/css/styles_admin.css">
+    <link rel="stylesheet" href="/css/responsive_admin.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/UI/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/UI/favicon-16x16.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+          integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+<section id="snackbar-container">
+</section>
+<div class="side-nav">
+    <div class="admin">
+        <div class="admin-img"><i class="fa-solid fa-user fa-xl"></i></div>
+        <div class="admin-title_name">
+            <h2 class="admin-name">Zuykorean</h2>
+            <p>Beta 1.1</p>
+        </div>
+    </div>
+    {{!-- <div class="light-line"></div> --}}
+    <div class="admin_nav-outer">
+        <ul class="nav-opt">
+            <li id="dashboard_admin"><i class="fa-solid fa-chart-line fa-xl"></i>
+                <p>Dashboard</p>
+            </li>
+            <li id="movieTheatres_admin"><i class="fa-solid fa-film fa-xl"></i>
+                <p>Movie Theatres</p>
+            </li>
+            <li id="movies_admin"><i class="fa-solid fa-video fa-xl"></i>
+                <p>Movies</p>
+            </li>
+            <li id="showTiming_admin"><i class="fa-solid fa-calendar fa-xl"></i>
+                <p>Show Timings</p>
+            </li>
+            <li id="combo_admin"><i class="fa-solid fa-utensils fa-xl"></i>
+                <p>Food & Drink Combo</p>
+            </li>
+            <li id="users_admin"><i class="fa-solid fa-users fa-xl"></i>
+                <p>Users</p>
+            </li>
+            <li id="booking_admin"><i class="fa-solid fa-ticket fa-xl"></i>
+                <p>Booking</p>
+            </li>
+            {{!-- <li id="expense_admin"><i class="fa-solid fa-money-bill-1-wave fa-xl"></i>
+            <p>Expense</p>
+        </li> --}}
+        </ul>
+        <ul class="nav-opt outer_logout">
+            <li id="logout_admin"><i class="fa-solid fa-arrow-right-from-bracket fa-xl"></i>
+                <p>Logout</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="main-body">
+    <div class="body-header">
+        <h4 id="dashboard_title"></h4>
+        <ul class="dashboard-date_opt">
+            <li id="today" onclick="todayClick()">Today</li>
+            <li id="week" onclick="weekClick()">Week</li>
+            <li id="month" onclick="monthClick()">Month</li>
+            <li id="year" onclick="yearClick()">Year</li>
+        </ul>
+    </div>
+    <div class="container dashboard-total">
+        <div class="row align-items-start">
+            <div class="col total-info total-views">
+                <div class="views-icon_outer">
+                    <img src="/images/Admin/total_views_icon.png" alt="">
+                </div>
+                <div class="views-info_outer">
+                    <p class="views-info_title">Total Views</p>
+                    <h6 id="views-info_value"></h6>
+                </div>
+            </div>
+            <div class="col total-info total-order">
+                <div class="order-icon_outer">
+                    <img src="/images/Admin/total_order_icon.png" alt="">
+                </div>
+                <div class="order-info_outer">
+                    <p class="order-info_title">Total Tickets</p>
+                    <h6 id="order-info_value">12.000</h6>
+                </div>
+            </div>
+            <div class="col total-info total-revenue">
+                <div class="revenue-icon_outer">
+                    <img src="/images/Admin/total_revenue_icon.png" alt="">
+                </div>
+                <div class="revenue-info_outer">
+                    <p class="revenue-info_title">Total Revenue</p>
+                    <h6 id="revenue-info_value">78,336$</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container dashboard-footer_outer">
+        <div class="row dashboard-footer">
+            <div class="col-8 dashboard-footer dashboard-chart_outer">
+                <div class="dashboard-profit_outer">
+                    <div class="dashboard-footer_title profit-title">
+                        <i class="fa-regular fa-circle"></i>
+                        <h6>Profit</h6>
+                    </div>
+                    <canvas id="dashboard-chart" class="dashboard-chart_profit">
+                    </canvas>
+                </div>
+            </div>
+            <div class="col-4 dashboard-footer dashboard-most_outer">
+                <div class="dashboard-ordered_outer">
+                    <div class="dashboard-footer_title dashboard-most-outer">
+                        <div class="most-title">
+                            <i class="fa-regular fa-circle"></i>
+                            <h6>Most popular movie</h6>
+                        </div>
+                        {{#each most_popular}}
+                        <div class="list-popular" data-movie="{{this.name}}">
+                            <div class="movie-wrap">
+                                <img class="movie-poster" src="{{this.src}}" alt="">
+                                <div class="movie-info">
+                                    <p class="movie-name">{{this.name}}</p>
+                                    <p class="movie-duration">{{this.duration}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/main_admin.js"></script>
+<script src="/js/dashboard_admin.js"></script>
+
+</html>
