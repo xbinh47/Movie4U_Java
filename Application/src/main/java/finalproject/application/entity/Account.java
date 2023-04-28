@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "account")
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "tickets"})
 public class Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,11 +25,11 @@ public class Account implements UserDetails {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "phone", nullable = false)
-    private String phone;
-
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "phone", nullable = true)
+    private String phone;
 
     @Column(name = "address", nullable = true)
     private String address;
@@ -37,10 +37,10 @@ public class Account implements UserDetails {
     @Column(name = "birthday", nullable = true)
     private String birthday;
 
-    @Column(name = "createAt", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private String createAt;
+    @Column(name = "createat", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private String createat;
 
-    @Column(name = "status", nullable = false, columnDefinition = "TINYINT DEFAULT 1")
+    @Column(name = "status", nullable = false, columnDefinition = "INT DEFAULT 1")
     private Integer status;
 
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)

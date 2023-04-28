@@ -26,6 +26,7 @@ const saveUserInfo = () => {
     .then(res => {
         if(res.data.code == 200){
             showToastMes(res.data.message, 'success')
+            localStorage.setItem('userInfo', JSON.stringify(res.data.data))
         }else{
             showToastMes(res.data.message, 'fail')
         }

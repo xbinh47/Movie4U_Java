@@ -1,5 +1,6 @@
 package finalproject.application.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "food_combo")
 @NoArgsConstructor @AllArgsConstructor @Getter @Setter @ToString
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "foodComboTicketList"})
 public class FoodCombo {
     @Id
     @Column(name = "id", nullable = false)

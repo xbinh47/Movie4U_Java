@@ -28,7 +28,7 @@ function renderAllUsers(data) {
                     <td>Null</td>
                     <td>Null</td>
                     <td>Null</td>
-                    <td>${element.createAt.slice(0, 10)}</td>
+                    <td>${element.createat.slice(0, 10)}</td>
                 </tr>
             `)
         }
@@ -43,7 +43,7 @@ function renderAllUsers(data) {
                     <td>${element.phone}</td>
                     <td>${element.address}</td>
                     <td>${element.birthday.slice(0, 10)}</td>
-                    <td>${element.createAt.slice(0, 10)}</td>
+                    <td>${element.createat.slice(0, 10)}</td>
                 </tr>
             `)
         }

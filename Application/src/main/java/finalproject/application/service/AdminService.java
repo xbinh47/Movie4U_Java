@@ -6,5 +6,8 @@ import java.text.ParseException;
 import java.util.HashMap;
 
 public interface AdminService {
-    public HashMap<String,Object> getAllSchedule() throws ParseException;
+    HashMap<String,Object> getAllSchedule() throws ParseException;
+    HashMap<String,Object> getAllTheatres();
+    HashMap<String,Object> getAllUser();
+
 }

@@ -18,7 +18,7 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     private TicketService ticketService;
-    @GetMapping("/")
+    @GetMapping("")
     public String main() {
         return "admin/dashboard_admin.html";
     }
@@ -31,11 +31,11 @@ public class AdminController {
 
     @GetMapping("/MovieTheatres")
     public String movieTheatres() {
-        return "admin/moivetheatres_admin.html";
+        return "admin/movietheatres_admin.html";
     }
 
 
-    @GetMapping("/Movie")
+    @GetMapping("/Movies")
     public String movie() {
         return "admin/movies_admin.html";
     }
@@ -50,13 +50,10 @@ public class AdminController {
         return "admin/combo_admin.html";
     }
 
-    @GetMapping("/User")
+    @GetMapping("/Users")
     public String user() {
         return "admin/users_admin.html";
     }
-
-
-
 
     @GetMapping("/getAllSchedule")
     @ResponseBody
@@ -68,5 +65,17 @@ public class AdminController {
     @ResponseBody
     public HashMap<String, Object> getAllTicket() throws ParseException {
         return ticketService.getAllTicket();
+    }
+
+    @GetMapping("/getAllTheatres")
+    @ResponseBody
+    public HashMap<String, Object> getAllTheatres() throws ParseException {
+        return adminService.getAllTheatres();
+    }
+
+    @GetMapping("/getAllUser")
+    @ResponseBody
+    public HashMap<String, Object> getAllUser() throws ParseException {
+        return adminService.getAllUser();
     }
 }

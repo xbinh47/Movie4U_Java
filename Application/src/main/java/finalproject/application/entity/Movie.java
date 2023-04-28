@@ -32,14 +32,14 @@ public class Movie {
     @Column(name = "trailer", nullable = false)
     private String trailer;
 
-    @Column(name = "status", nullable = false, columnDefinition = "TINYINT DEFAULT 1")
+    @Column(name = "status", nullable = false, columnDefinition = "INT DEFAULT 1")
     private Integer status;
 
     @Column(name = "description", nullable = false)
     private String description;
 
     @Column(name = "age_restrict", nullable = false)
-    private Integer ageRestrict;
+    private String ageRestrict;
 
     @Column(name = "director", nullable = false)
     private String director;

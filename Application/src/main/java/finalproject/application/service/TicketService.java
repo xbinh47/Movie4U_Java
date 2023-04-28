@@ -6,7 +6,7 @@ import java.util.HashMap;
 public interface TicketService {
     HashMap<String,Object> getMovieSchedule(Integer movie_id, String date) throws ParseException;
     HashMap<String, Object> addTicket(HashMap<String, Object> data);
-    HashMap<String, Object> getSeat();
+    HashMap<String, Object> getSeat(Integer schedule_time_id);
     HashMap<String, Object> getTicketByAccountId();
     HashMap<String, Object> getFoodCombo();
     HashMap<String, Object> getAllTicket();
