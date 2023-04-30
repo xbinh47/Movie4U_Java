@@ -21,10 +21,10 @@ public class FoodCombo {
     private String name;
 
     @Column(name = "drink", nullable = false)
-    private String drink;
+    private Integer drink;
 
     @Column(name = "popcorn", nullable = false)
-    private String popcorn;
+    private Integer popcorn;
 
     @Column(name = "image", nullable = false)
     private String image;

@@ -51,6 +51,9 @@ public class Movie {
     @JsonIgnoreProperties("movie")
     private List<Schedule> schedules;
 
-    @ManyToMany(mappedBy = "movieList")
-    private List<Category> categories;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "movie_category",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private List<Category> categoryList;
 }

@@ -4,6 +4,7 @@ import finalproject.application.dto.ScheduleDTO;
 import finalproject.application.dto.TicketDTO;
 import finalproject.application.entity.*;
 import finalproject.application.repository.*;
+import finalproject.application.service.EmailService;
 import finalproject.application.service.TicketService;
 import jakarta.persistence.EntityManager;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,12 +14,15 @@ import org.springframework.orm.jpa.EntityManagerProxy;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,6 +39,9 @@ public class TicketServiceImpl implements TicketService {
     private TicketRepository ticketRepository;
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private EmailService emailService;
+
     @Override
     public HashMap<String, Object> getMovieSchedule(Integer movie_id, String date) throws ParseException {
         List<Object[]> scheduleList = scheduleRepository.getScheduleByMovieIdAndDate(movie_id, date);
@@ -58,20 +65,19 @@ public class TicketServiceImpl implements TicketService {
             return result;
         }
 
-        String[] seat = data.get("seat").toString().split(",");
-        checkSeat(seat);
+        String[] foodComboIdList = data.get("food_combo_id").toString().split(",");
+        String[] foodComboQuantityList = data.get("food_combo_quantity").toString().split(",");
+        Account account = accountRepository.getAccountById(Integer.parseInt(data.get("account_id").toString()));
+        ScheduleTime scheduleTime = scheduleTimeRepository.getScheduleTimeById(Integer.parseInt(data.get("schedule_time_id").toString()));
 
-        if(!checkSeat(seat)){
+        String[] seat = data.get("seat").toString().split(",");
+
+        if(!checkSeat(seat, scheduleTime)){
             HashMap<String, Object> result = new HashMap<>();
             result.put("code", "400");
             result.put("message", "Seat is already taken");
             return result;
         }
-
-        String[] foodComboIdList = data.get("food_combo_id").toString().split(",");
-        String[] foodComboQuantityList = data.get("food_combo_quantity").toString().split(",");
-        Account account = accountRepository.getAccountById(Integer.parseInt(data.get("account_id").toString()));
-        ScheduleTime scheduleTime = scheduleTimeRepository.getScheduleTimeById(Integer.parseInt(data.get("schedule_time_id").toString()));
 
         Ticket newTicket = new Ticket();
 
@@ -92,7 +98,7 @@ public class TicketServiceImpl implements TicketService {
             List<FoodComboTicket> foodComboTicketList = new ArrayList<>();
             for(int i = 0; i < foodComboIdList.length; i++){
                 FoodComboTicket foodComboTicket = new FoodComboTicket();
-                FoodCombo foodCombo = foodComboRepository.getFoodComboById(Integer.parseInt(foodComboIdList[i]));
+                FoodCombo foodCombo = foodComboRepository.findFoodComboById(Integer.parseInt(foodComboIdList[i]));
                 foodComboTicket.setFoodCombo(foodCombo);
                 totalPrice += foodCombo.getPrice() * Integer.parseInt(foodComboQuantityList[i]);
                 foodComboTicket.setQuantity(Integer.parseInt(foodComboQuantityList[i]));
@@ -119,6 +125,19 @@ public class TicketServiceImpl implements TicketService {
             seatRepository.save(newSeat);
         }
 
+
+            try {
+                emailService.sendTicket(account.getEmail(), "Thank for purchase" , ticketRepository.findTicketById(newTicket.getId()));
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        CompletableFuture.runAsync(() -> {
+
+            System.out.println("Hello");
+        });
+
         HashMap<String, Object> result = new HashMap<>();
         result.put("code", "200");
         result.put("message", "Success");
@@ -143,8 +162,26 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public HashMap<String, Object> getTicketByAccountId() {
-        return null;
+    public HashMap<String, Object> getTicketByAccountId(HttpServletRequest request) {
+        if(request.getSession().getAttribute("account_id") == null){
+            HashMap<String, Object> result = new HashMap<>();
+            result.put("code", "400");
+            result.put("message", "Please login");
+            return result;
+        }
+
+        Integer account_id = Integer.parseInt(request.getSession().getAttribute("account_id").toString());
+        List<Object[]> ticketList = ticketRepository.getTicketByAccountId(account_id);
+        List<TicketDTO> ticketDTOList = new ArrayList<>();
+        for(Object[] ticket : ticketList){
+            ticketDTOList.add(TicketDTO.getInstance().convertToObject(ticket));
+        }
+
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("code", "200");
+        result.put("message", "Success");
+        result.put("data", ticketDTOList);
+        return result;
     }
 
     @Override
@@ -153,6 +190,17 @@ public class TicketServiceImpl implements TicketService {
         result.put("code", "200");
         result.put("message", "Success");
         result.put("data", foodComboRepository.findAll());
+        return result;
+    }
+
+    @Override
+    public HashMap<String, Object> getFoodComboById(Integer id) {
+        HashMap<String, Object> result = new HashMap<>();
+        List<FoodCombo> foodComboList = new ArrayList<>();
+        foodComboList.add(foodComboRepository.findFoodComboById(id));
+        result.put("code", "200");
+        result.put("message", "Success");
+        result.put("data", foodComboList);
         return result;
     }
 
@@ -185,9 +233,9 @@ public class TicketServiceImpl implements TicketService {
         return null;
     }
 
-    public boolean checkSeat(String[] seat){
+    public boolean checkSeat(String[] seat, ScheduleTime scheduleTime){
         for(String s : seat){
-            if(seatRepository.getSeatByName(s) != null){
+            if(seatRepository.getSeatByNameAndScheduleTime(s, scheduleTime) != null){
                 return false;
             }
         }

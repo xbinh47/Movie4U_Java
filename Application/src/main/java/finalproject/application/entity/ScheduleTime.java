@@ -1,9 +1,11 @@
 package finalproject.application.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "schedule_time")
+@NoArgsConstructor @AllArgsConstructor @Getter @Setter @ToString
 public class ScheduleTime {
     @Id
     @Column(name = "id")

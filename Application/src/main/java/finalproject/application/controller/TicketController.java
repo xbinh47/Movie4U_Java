@@ -42,4 +42,10 @@ public class TicketController {
         return ticketService.getFoodCombo();
     }
 
+    @GetMapping("/getTicketByAccountId")
+    @ResponseBody
+    public HashMap<String, Object> getTicketByAccountId(HttpServletRequest request){
+        return ticketService.getTicketByAccountId(request);
+    }
+
 }

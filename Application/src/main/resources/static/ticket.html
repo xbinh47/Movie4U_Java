@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+<div class="ticket">
+    <div class="left">
+        <div class="image">
+
+            <div class="ticket-number">
+                <p style= "color: black">
+                    #{ticket_id}
+                </p>
+            </div>
+        </div>
+        <div class="ticket-info">
+            <p class="date">
+                <span>{dayOfWeek}</span>
+                <span class="nov-10">{month}</span>
+                <span>{year}</span>
+            </p>
+            <div class="show-name">
+                <h1>#Movie4u</h1>
+                <h2>{movie_name}</h2>
+            </div>
+            <div class="time">
+                <p>{start_time}<span> TO </span>{end_time}</p>
+                <p>Seat: {seat_names}</p>
+            </div>
+
+            <p class="location"><span>Rạp Phim :</span>
+                <span class="separator"><i class="fa-solid fa-cross"></i></span><span>{theatre_name}</span>
+            </p>
+        </div>
+    </div>
+    <div class="right">
+
+        <div class="right-info-container">
+            <div class="show-name">
+                <h1>#Movie4u</h1>
+            </div>
+            <div class="time">
+                <span>{date}</span>
+            </div>
+            <div class="barcode">
+                <img src="data:image/png;base64,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" alt="QR code">
+            </div>
+            <p class="ticket-number" style="color: black">
+                #{ticket_id}
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

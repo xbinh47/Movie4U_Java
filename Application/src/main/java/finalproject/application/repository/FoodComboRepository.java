@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface FoodComboRepository extends JpaRepository<FoodCombo, Integer> {
     List<FoodCombo> findAll();
-    FoodCombo getFoodComboById(int id);
+    FoodCombo findFoodComboById(Integer id);
 }

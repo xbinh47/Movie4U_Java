@@ -4,7 +4,9 @@ import finalproject.application.config.JwtService;
 import finalproject.application.entity.Account;
 import finalproject.application.entity.Role;
 import finalproject.application.repository.AccountRepository;
+import finalproject.application.service.EmailService;
 import finalproject.application.service.UserService;
+import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +36,7 @@ public class UserServiceImpl implements UserService {
 
     private final JwtService jwtService;
 
+    private final EmailService emailService;
 
     @Override
     public HashMap<String, Object> logIn(HashMap<String, String> data, HttpServletRequest request) {
@@ -75,7 +79,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public HashMap<String, Object> register(HashMap<String, String> data) {
+    public HashMap<String, Object> register(HashMap<String, String> data) throws MessagingException {
         HashMap<String, Object> response = new HashMap<>();
         if(data.get("email") == null || data.get("password") == null || data.get("name") == null){
             response.put("code", "400");
@@ -102,6 +106,17 @@ public class UserServiceImpl implements UserService {
             newAccount.setCreateat(now.toString());
             newAccount.setStatus(1);
             accountRepository.save(newAccount);
+
+            String  content = "<h1>Welcome to Movie4U</h1><h2>Your account</h2><h3>Email: " + email + "</h3><h3>Password: " + password + "</h3>";
+
+            CompletableFuture.runAsync(() -> {
+                try {
+                    emailService.sendEmail(email, "Movie4U - Register", content);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            });
+
             response.put("code", "200");
             response.put("message", "Account created successfully");
         }

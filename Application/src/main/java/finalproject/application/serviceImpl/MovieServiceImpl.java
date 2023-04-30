@@ -20,7 +20,16 @@ public class MovieServiceImpl implements MovieService {
     private PosterRepository posterRepository;
     @Override
     public HashMap<String, Object> getAllMovie() {
-        return null;
+        List<Object[]> movieList = movieRepository.getAllMovie();
+        List<MovieDTO> movieDTOList = new ArrayList<>();
+        for (Object[] movie : movieList){
+            movieDTOList.add(MovieDTO.getInstance().convertToObject(movie));
+        }
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("status", 200);
+        data.put("message", "Success");
+        data.put("data", movieDTOList);
+        return data;
     }
 
     @Override

@@ -147,10 +147,10 @@ function selectTheatreToEdit(id) {
   })
     .then(res => {
       const data = res.data.data[0]
-      editTheatresLabel.innerHTML = "Edit Theatre Id: " + data.theatre_id
-      editTheatresLabel.setAttribute('theatre_id', data.theatre_id)
-      editTheatresName.value = data.theatre_name
-      editTheatresAddress.value = data.theatre_address
+      editTheatresLabel.innerHTML = "Edit Theatre Id: " + data.id
+      editTheatresLabel.setAttribute('theatre_id', data.id)
+      editTheatresName.value = data.name
+      editTheatresAddress.value = data.address
       editTheatresTel.value = data.tel
       editTheatresDes.value = data.description
       editRoom2D3D.value = data.R2D_3D

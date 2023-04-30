@@ -2,6 +2,7 @@ package finalproject.application.controller;
 
 import finalproject.application.config.JwtService;
 import finalproject.application.service.UserService;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class UserController{
 
     @PostMapping("/register")
     @ResponseBody
-    public HashMap<String, Object> register(@RequestBody HashMap<String, String> body) {
+    public HashMap<String, Object> register(@RequestBody HashMap<String, String> body) throws MessagingException {
         HashMap<String, Object> result = userService.register(body);
         return result;
     }
