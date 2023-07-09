@@ -112,6 +112,7 @@ public class UserServiceImpl implements UserService {
             CompletableFuture.runAsync(() -> {
                 try {
                     emailService.sendEmail(email, "Movie4U - Register", content);
+                    System.out.println("Email sent successfully");
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }

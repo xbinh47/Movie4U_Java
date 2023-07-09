@@ -6,6 +6,7 @@ import finalproject.application.entity.*;
 import finalproject.application.repository.*;
 import finalproject.application.service.EmailService;
 import finalproject.application.service.TicketService;
+import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityManager;
 import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
@@ -125,17 +126,17 @@ public class TicketServiceImpl implements TicketService {
             seatRepository.save(newSeat);
         }
 
-
+        CompletableFuture.runAsync(() -> {
             try {
-                emailService.sendTicket(account.getEmail(), "Thank for purchase" , ticketRepository.findTicketById(newTicket.getId()));
+                emailService.sendTicket(account.getEmail(), "Move4U - Ticket" , ticketRepository.findTicketById(newTicket.getId()));
+                System.out.println("Send email success");
             } catch (URISyntaxException e) {
                 throw new RuntimeException(e);
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
             }
-        CompletableFuture.runAsync(() -> {
-
-            System.out.println("Hello");
         });
 
         HashMap<String, Object> result = new HashMap<>();

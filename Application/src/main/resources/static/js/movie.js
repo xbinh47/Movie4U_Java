@@ -7,12 +7,12 @@ const movieTypeBtn = document.querySelectorAll('.movie_btn')
 openMovieContainer.style.display = 'grid'
 comingMovieContainer.style.display = 'none'
 
-let indexType = 0
+let indexType = 1
 
 movieTypeBtn.forEach((element, index) => {
     element.addEventListener('click', () => {
         const selectedMovieBtn = document.querySelector('.movie_btn-selected')
-        indexType = index
+        indexType = index == 0 ? 1 : 0
         if (!element.isSameNode(selectedMovieBtn)) {
             selectedMovieBtn.classList.remove('movie_btn-selected')
             element.classList.add('movie_btn-selected')
@@ -65,23 +65,23 @@ const getMovieByKeyWord = keyword => {
             name: keyword,
         }
     })
-    .then(res => {
-        const filter = res.data.data.filter(item => item.status == indexType)
-        if(indexType == 0){
-            resetComingMovie()
-            filter.forEach(item => {
-                renderComingMovie(item)
-            })
-        }else if(indexType == 1){
-            resetOpenMovie()
-            filter.forEach(item => {
-                renderOpenMovie(item)
-            })
-        }
-    })
-    .catch(err => {
-        console.error(err)
-    })
+        .then(res => {
+            const filter = res.data.data.filter(item => item.status == indexType)
+            if(indexType == 0){
+                resetComingMovie()
+                filter.forEach(item => {
+                    renderComingMovie(item)
+                })
+            }else if(indexType == 1){
+                resetOpenMovie()
+                filter.forEach(item => {
+                    renderOpenMovie(item)
+                })
+            }
+        })
+        .catch(err => {
+            console.error(err)
+        })
 }
 
 searchBtn.addEventListener('click', () => {

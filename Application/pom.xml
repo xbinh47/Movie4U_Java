@@ -100,16 +100,6 @@
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>3.0.4</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.jsoup</groupId>-->
-<!--            <artifactId>jsoup</artifactId>-->
-<!--            <version>1.15.4</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.xhtmlrenderer</groupId>-->
-<!--            <artifactId>flying-saucer-pdf-openpdf</artifactId>-->
-<!--            <version>9.1.22</version>-->
-<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/com.itextpdf/html2pdf -->
         <dependency>
             <groupId>com.itextpdf</groupId>
@@ -122,6 +112,7 @@
             <artifactId>itextpdf</artifactId>
             <version>5.5.13.3</version>
         </dependency>
+
     </dependencies>
 
     <build>
